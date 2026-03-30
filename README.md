@@ -2,8 +2,6 @@
 
 A multi-step **Employee Onboarding Form** for HR or internal operations, built with [Angular](https://angular.dev) and [Kendo UI for Angular](https://www.telerik.com/kendo-angular-ui). The flow includes validation, step navigation, local draft persistence, and a success screen after submit (demo only — no backend).
 
-## Screenshots
-
 The UI was implemented using guidance from the **[Kendo UI Generator MCP server](https://www.telerik.com/kendo-angular-ui/components/ai-assistant/mcp-server)** (Kendo UI for Angular’s MCP tools in Cursor, including the Agentic UI Generator orchestration). The images below were saved from a working local `ng serve` session.
 
 ### Initial Prompt
@@ -72,7 +70,7 @@ Implementation notes:
 Please scaffold the full multi-step app and briefly explain the structure when done.
 ```
 
-![Employee onboarding wizard — Personal step with Kendo Stepper and progress](./docs/screenshots/onboarding-wizard-personal-step.png)
+![`Employee onboarding wizard — Personal step with Kendo Stepper and progress`](./docs/screenshots/onboarding-wizard-personal-step.png)
 
 *Main wizard on the **Personal** step: Kendo Stepper, overall progress bar, and form fields. If this does not render in your Markdown preview, open [docs/screenshots/onboarding-wizard-personal-step.png](./docs/screenshots/onboarding-wizard-personal-step.png) directly.*
 
@@ -80,12 +78,13 @@ Please scaffold the full multi-step app and briefly explain the structure when d
 
 ## Origin and chat history
 
-The conversational prompt and implementation notes that drove this project are preserved in **cursor_employee_onboarding_form_structu.md](./cursor_employee_onboarding_form_structu.md)** (exported Cursor chat history). That thread used the **Kendo UI Generator MCP server** for Angular — the orchestrator that plans Kendo components, layout utilities, styling, and accessibility checks when building or refining UIs (see the MCP documentation below).
+The conversational prompt and implementation notes that drove this project are preserved in **[cursor_employee_onboarding_form_structu.md](./docs/cursor_employee_onboarding_form_structu.md)** (exported Cursor chat history). That thread used the **Kendo UI Generator MCP server** for Angular — the orchestrator that plans Kendo components, layout utilities, styling, and accessibility checks when building or refining UIs (see the MCP documentation below).
 
 Official references:
 
 - **[Kendo UI Generator MCP server](https://www.telerik.com/kendo-angular-ui/components/ai-assistant/mcp-server)** — install and use the Kendo UI for Angular MCP in Cursor (includes the UI Generator workflow).
 - [Agentic UI Generator (overview)](https://www.telerik.com/kendo-angular-ui/components/ai-tools/agentic-ui-generator) — how the UI Generator fits the AI-assisted workflow.
+- **[Kendo UI for Angular documentation](https://www.telerik.com/kendo-angular-ui/components)** — component reference, guides, and getting started.
 
 ## Angular development standards
 
