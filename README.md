@@ -87,6 +87,10 @@ Official references:
 - **[Kendo UI Generator MCP server](https://www.telerik.com/kendo-angular-ui/components/ai-assistant/mcp-server)** — install and use the Kendo UI for Angular MCP in Cursor (includes the UI Generator workflow).
 - [Agentic UI Generator (overview)](https://www.telerik.com/kendo-angular-ui/components/ai-tools/agentic-ui-generator) — how the UI Generator fits the AI-assisted workflow.
 
+## Angular development standards
+
+- See [Angular best practices (MCP output)](./docs/angular-best-practices.md) for the project-aligned standards used during implementation.
+
 ## Prerequisites
 
 - Node.js (LTS recommended)
