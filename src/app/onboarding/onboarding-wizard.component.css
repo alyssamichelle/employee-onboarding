@@ -1,0 +1,24 @@
+.wizard-page {
+  max-width: 100%;
+}
+
+.wizard-inner {
+  max-width: 52rem;
+}
+
+.progress-line {
+  min-width: 8rem;
+}
+
+/* Screen-reader-only helper (progress/design system may not ship .k-sr-only for all builds) */
+:host ::ng-deep .k-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

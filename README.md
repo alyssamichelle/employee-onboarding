@@ -1,59 +1,65 @@
-# EmployeeOnboardingForm
+# Employee Onboarding Form
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.3.
+A multi-step **Employee Onboarding Form** for HR or internal operations, built with [Angular](https://angular.dev) and [Kendo UI for Angular](https://www.telerik.com/kendo-angular-ui). The flow includes validation, step navigation, local draft persistence, and a success screen after submit (demo only — no backend).
 
-## Development server
+## Prerequisites
 
-To start a local development server, run:
+- Node.js (LTS recommended)
+- npm (project uses npm 11+)
 
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Setup
 
 ```bash
-ng generate component component-name
+npm install
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Run locally
 
 ```bash
-ng generate --help
+npm start
 ```
 
-## Building
+Open `http://localhost:4200/`. The default route loads the onboarding wizard.
 
-To build the project run:
+## Build
 
 ```bash
-ng build
+npm run build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Output is written to `dist/employee-onboarding-form`.
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Tests
 
 ```bash
-ng test
+npm test
 ```
 
-## Running end-to-end tests
+This project uses the Angular CLI’s **Vitest** integration. If the CLI reports missing browser packages for your environment, install the suggested `@vitest/browser-*` package from the error message, or run tests in the IDE using the configured test target.
 
-For end-to-end (e2e) testing, run:
+## Kendo UI license
 
-```bash
-ng e2e
-```
+Kendo UI is a commercial product. For development, follow [Kendo UI licensing](https://www.telerik.com/kendo-angular-ui/my-license/): install a license key or use trial terms as documented by Progress. You can call `setLicenseKey` from `@progress/kendo-licensing` in `main.ts` when you have a key.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Integrating real APIs later
 
-## Additional Resources
+| Area | Where to integrate |
+|------|-------------------|
+| **Submit handler** | `OnboardingWizardComponent.submit()` in `src/app/onboarding/onboarding-wizard.component.ts` — replace the demo `storage.clear()` + `submitted.set(true)` with an HTTP call (e.g. `HttpClient.post`) to your HRIS or workflow API. |
+| **Sensitive payroll data** | `TaxPayrollStepComponent` uses placeholder fields on purpose. In production, collect tax and banking details through your payroll provider’s secure flow or tokenized fields, not plain text in a generic form. |
+| **Auth** | Add `HttpClient` interceptors (or `provideHttpClient(withInterceptors(...))`) for tokens and correlate submissions with the signed-in user. |
+| **Draft sync** | `OnboardingStorageService` (`src/app/onboarding/onboarding-storage.service.ts`) persists to `localStorage`. Swap or extend this with server-backed drafts (user id + version) if users switch devices. |
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Storage key: `employee-onboarding-form-draft-v1` (see `ONBOARDING_STORAGE_KEY`).
+
+## Project structure (high level)
+
+- `src/app/onboarding/onboarding-wizard.component.*` — shell: stepper, progress bar, navigation, submit, success screen, autosave.
+- `src/app/onboarding/steps/` — one component per step (personal, job, tax, equipment, policies, review).
+- `src/app/onboarding/onboarding-storage.service.ts` — load/save/clear draft JSON.
+- `src/app/onboarding/onboarding-options.ts` — shared dropdown/multiselect option lists.
+- `src/styles.css` — Kendo Default theme, theme utils, and app-level CSS variables.
+
+## Security note
+
+This app is intentionally **frontend-only**. Do not paste real tax IDs, bank account numbers, or other regulated data unless the app is wired to secure, approved endpoints and meets your organization’s compliance requirements.
