@@ -34,6 +34,7 @@ import {
 const PHONE_PATTERN = /^\+?[0-9][0-9\s\-().]{7,20}$/;
 const STEP_GROUP_KEYS = ['personal', 'job', 'tax', 'equipment', 'policies'] as const;
 const TOTAL_STEPS = 6;
+type StepMessageTone = 'error' | 'info';
 
 @Component({
   selector: 'app-onboarding-wizard',
@@ -62,6 +63,7 @@ export class OnboardingWizardComponent {
   readonly submitted = signal(false);
   readonly currentStep = signal(0);
   readonly stepMessage = signal<string | null>(null);
+  readonly stepMessageTone = signal<StepMessageTone>('error');
 
   readonly stepperSteps = [
     { label: 'Personal' },
@@ -76,6 +78,14 @@ export class OnboardingWizardComponent {
     Math.round(((this.currentStep() + 1) / TOTAL_STEPS) * 100)
   );
   readonly canPopulateCurrentStep = computed(() => this.currentStep() < STEP_GROUP_KEYS.length);
+  readonly stepMessageRole = computed(() =>
+    this.stepMessageTone() === 'error' ? 'alert' : 'status'
+  );
+  readonly stepMessageClass = computed(() =>
+    this.stepMessageTone() === 'error'
+      ? 'k-p-3 k-rounded-md k-border-error k-bg-error-subtle k-text-error'
+      : 'k-p-3 k-rounded-md k-border-info k-bg-info-subtle'
+  );
 
   readonly form = this.fb.group({
     personal: this.fb.group({
@@ -137,11 +147,11 @@ export class OnboardingWizardComponent {
     const to = event.index;
     if (to > from && !this.canAdvance(from, to)) {
       event.preventDefault();
-      this.stepMessage.set(
+      this.showStepMessage(
         'Some required fields are missing or invalid. Review the messages below, then try again.'
       );
     } else {
-      this.stepMessage.set(null);
+      this.clearStepMessage();
     }
   }
 
@@ -154,7 +164,7 @@ export class OnboardingWizardComponent {
     const i = this.currentStep();
     if (i > 0) {
       this.currentStep.set(i - 1);
-      this.stepMessage.set(null);
+      this.clearStepMessage();
       this.persistDraft();
     }
   }
@@ -162,12 +172,12 @@ export class OnboardingWizardComponent {
   protected next(): void {
     const i = this.currentStep();
     if (!this.validateStepGroup(i)) {
-      this.stepMessage.set(
+      this.showStepMessage(
         'Please complete the required fields on this step before continuing.'
       );
       return;
     }
-    this.stepMessage.set(null);
+    this.clearStepMessage();
     if (i < TOTAL_STEPS - 1) {
       this.currentStep.set(i + 1);
       this.persistDraft();
@@ -177,12 +187,12 @@ export class OnboardingWizardComponent {
   protected submit(): void {
     this.form.markAllAsTouched();
     if (!this.form.valid) {
-      this.stepMessage.set(
+      this.showStepMessage(
         'The form can’t be submitted yet. Review the sections with errors and try again.'
       );
       return;
     }
-    this.stepMessage.set(null);
+    this.clearStepMessage();
     this.storage.clear();
     this.submitted.set(true);
   }
@@ -235,16 +245,16 @@ export class OnboardingWizardComponent {
         });
         break;
       default:
-        this.stepMessage.set('Move to a form step to populate placeholder values.');
+        this.showStepMessage('Move to a form step to populate placeholder values.', 'info');
         return;
     }
-    this.stepMessage.set('Placeholder values added for this step.');
+    this.showStepMessage('Placeholder values added for this step.', 'info');
     this.persistDraft();
   }
 
   protected editSection(step: number): void {
     this.currentStep.set(step);
-    this.stepMessage.set(null);
+    this.clearStepMessage();
     this.persistDraft();
   }
 
@@ -287,8 +297,18 @@ export class OnboardingWizardComponent {
     });
     this.currentStep.set(0);
     this.submitted.set(false);
-    this.stepMessage.set(null);
+    this.clearStepMessage();
     this.storage.clear();
+  }
+
+  private showStepMessage(message: string, tone: StepMessageTone = 'error'): void {
+    this.stepMessageTone.set(tone);
+    this.stepMessage.set(message);
+  }
+
+  private clearStepMessage(): void {
+    this.stepMessage.set(null);
+    this.stepMessageTone.set('error');
   }
 
   private canAdvance(from: number, to: number): boolean {

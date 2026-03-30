@@ -10,6 +10,22 @@
   min-width: 8rem;
 }
 
+/* Smooth height when step feedback appears (grid 0fr → 1fr; no fixed min-height). */
+.wizard-step-message-slot {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease-out;
+}
+
+.wizard-step-message-slot--open {
+  grid-template-rows: 1fr;
+}
+
+.wizard-step-message-slot-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
 /* Screen-reader-only helper (progress/design system may not ship .k-sr-only for all builds) */
 :host ::ng-deep .k-sr-only {
   position: absolute;

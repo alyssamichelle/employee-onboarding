@@ -7,6 +7,8 @@
   --kendo-color-surface: #ffffff;
   --kendo-color-on-surface: #0b1f23;
   --kendo-color-primary: #127a75;
+  /* Theme utils default for primary-subtle is a pink fallback if unset; align with brand teal */
+  --kendo-color-primary-subtle: #e0f3f2;
   --kendo-color-primary-hover: #0f6a64;
   --kendo-color-primary-active: #0d5956;
   --kendo-color-on-primary: #ffffff;

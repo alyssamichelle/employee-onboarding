@@ -56,49 +56,58 @@
             </div>
           </div>
 
-          @if (stepMessage(); as msg) {
+          <div class="k-d-flex k-flex-col k-gap-4">
             <div
-              class="k-p-3 k-rounded-md k-border-error k-bg-error-subtle k-text-error"
-              role="alert"
-              aria-live="assertive"
+              class="wizard-step-message-slot"
+              [class.wizard-step-message-slot--open]="stepMessage() !== null"
             >
-              {{ msg }}
+              <div class="wizard-step-message-slot-inner">
+                @if (stepMessage(); as msg) {
+                  <div
+                    [class]="stepMessageClass()"
+                    [attr.role]="stepMessageRole()"
+                    [attr.aria-live]="stepMessageRole() === 'alert' ? 'assertive' : 'polite'"
+                  >
+                    {{ msg }}
+                  </div>
+                }
+              </div>
             </div>
-          }
 
-          <form
-            kendoForm
-            [formGroup]="form"
-            class="k-d-flex k-flex-col k-gap-4"
-            novalidate
-            aria-describedby="wizard-instructions"
-          >
-            <span id="wizard-instructions" class="k-sr-only">
-              Use the stepper or Next and Back buttons to move between sections. Required fields are marked
-              in each step.
-            </span>
+            <form
+              kendoForm
+              [formGroup]="form"
+              class="k-d-flex k-flex-col k-gap-4"
+              novalidate
+              aria-describedby="wizard-instructions"
+            >
+              <span id="wizard-instructions" class="k-sr-only">
+                Use the stepper or Next and Back buttons to move between sections. Required fields are
+                marked in each step.
+              </span>
 
-            @switch (currentStep()) {
-              @case (0) {
-                <app-personal-info-step [group]="form.controls.personal" />
+              @switch (currentStep()) {
+                @case (0) {
+                  <app-personal-info-step [group]="form.controls.personal" />
+                }
+                @case (1) {
+                  <app-job-details-step [group]="form.controls.job" />
+                }
+                @case (2) {
+                  <app-tax-payroll-step [group]="form.controls.tax" />
+                }
+                @case (3) {
+                  <app-equipment-step [group]="form.controls.equipment" />
+                }
+                @case (4) {
+                  <app-policies-step [group]="form.controls.policies" />
+                }
+                @case (5) {
+                  <app-review-step [form]="form" (editSection)="editSection($event)" />
+                }
               }
-              @case (1) {
-                <app-job-details-step [group]="form.controls.job" />
-              }
-              @case (2) {
-                <app-tax-payroll-step [group]="form.controls.tax" />
-              }
-              @case (3) {
-                <app-equipment-step [group]="form.controls.equipment" />
-              }
-              @case (4) {
-                <app-policies-step [group]="form.controls.policies" />
-              }
-              @case (5) {
-                <app-review-step [form]="form" (editSection)="editSection($event)" />
-              }
-            }
-          </form>
+            </form>
+          </div>
 
           <kendo-card-actions class="k-justify-content-between k-flex-wrap k-gap-2">
             <button
