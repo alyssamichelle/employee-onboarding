@@ -2,6 +2,91 @@
 
 A multi-step **Employee Onboarding Form** for HR or internal operations, built with [Angular](https://angular.dev) and [Kendo UI for Angular](https://www.telerik.com/kendo-angular-ui). The flow includes validation, step navigation, local draft persistence, and a success screen after submit (demo only — no backend).
 
+## Screenshots
+
+The UI was implemented using guidance from the **[Kendo UI Generator MCP server](https://www.telerik.com/kendo-angular-ui/components/ai-assistant/mcp-server)** (Kendo UI for Angular’s MCP tools in Cursor, including the Agentic UI Generator orchestration). The images below were saved from a working local `ng serve` session.
+
+### Initial Prompt
+```
+#kendo_ui_generator Build a modern web app called “Employee Onboarding Form”.
+
+Goal:
+Create a multi-step employee onboarding form for HR or internal operations. The experience should feel clean, guided, and easy to complete.
+
+Requirements:
+- Build a multi-step form flow with progress indicator
+- Steps should include:
+  1. Personal Information
+  2. Job Details
+  3. Tax / Payroll Information
+  4. Equipment / Access Requests
+  5. Policies / Agreements
+  6. Review & Submit
+- Personal Information step:
+  - full name
+  - email
+  - phone
+  - address
+  - emergency contact
+- Job Details step:
+  - department
+  - job title
+  - manager
+  - start date
+  - employment type
+  - location/work mode
+- Tax / Payroll step:
+  - placeholder fields for tax ID, bank details, payment preferences
+  - include clear note that this is mock/demo data
+- Equipment / Access Requests step:
+  - laptop choice
+  - accessories
+  - software access
+  - systems/accounts needed
+- Policies / Agreements step:
+  - checklist/checkbox acknowledgements
+  - handbook confirmation
+  - security policy agreement
+  - code of conduct acknowledgement
+- Review & Submit step:
+  - summary of all entered information
+  - edit previous sections option
+  - final submit action
+- Include:
+  - field validation
+  - step-by-step navigation
+  - save progress locally
+  - success confirmation screen after submit
+  - clean error messaging
+- Make the layout responsive and user-friendly
+- Use reusable form components where possible
+- Include accessible labels and helpful instructions
+
+Implementation notes:
+- No backend required
+- Use local state and/or local storage to preserve progress
+- Keep the form realistic but safe, with mock/demo handling for sensitive fields
+- Organize code clearly by steps/components
+- Include a README with setup instructions and notes on where to integrate real APIs or submission handling later
+
+Please scaffold the full multi-step app and briefly explain the structure when done.
+```
+
+![Employee onboarding wizard — Personal step with Kendo Stepper and progress](./docs/screenshots/onboarding-wizard-personal-step.png)
+
+*Main wizard on the **Personal** step: Kendo Stepper, overall progress bar, and form fields. If this does not render in your Markdown preview, open [docs/screenshots/onboarding-wizard-personal-step.png](./docs/screenshots/onboarding-wizard-personal-step.png) directly.*
+
+*Troubleshooting reference: dev server before `@angular/localize/init` was added as a polyfill in `angular.json` — runtime error `$localize is not defined` can produce an empty page. Confirm the localize polyfill is present and restart `ng serve`.*
+
+## Origin and chat history
+
+The conversational prompt and implementation notes that drove this project are preserved in **cursor_employee_onboarding_form_structu.md](./cursor_employee_onboarding_form_structu.md)** (exported Cursor chat history). That thread used the **Kendo UI Generator MCP server** for Angular — the orchestrator that plans Kendo components, layout utilities, styling, and accessibility checks when building or refining UIs (see the MCP documentation below).
+
+Official references:
+
+- **[Kendo UI Generator MCP server](https://www.telerik.com/kendo-angular-ui/components/ai-assistant/mcp-server)** — install and use the Kendo UI for Angular MCP in Cursor (includes the UI Generator workflow).
+- [Agentic UI Generator (overview)](https://www.telerik.com/kendo-angular-ui/components/ai-tools/agentic-ui-generator) — how the UI Generator fits the AI-assisted workflow.
+
 ## Prerequisites
 
 - Node.js (LTS recommended)
