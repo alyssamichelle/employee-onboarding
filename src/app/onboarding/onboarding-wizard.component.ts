@@ -22,6 +22,14 @@ import { PersonalInfoStepComponent } from './steps/personal-info-step.component'
 import { PoliciesStepComponent } from './steps/policies-step.component';
 import { ReviewStepComponent } from './steps/review-step.component';
 import { TaxPayrollStepComponent } from './steps/tax-payroll-step.component';
+import {
+  ACCESSORY_OPTIONS,
+  DEPARTMENTS,
+  EMPLOYMENT_TYPES,
+  LAPTOP_OPTIONS,
+  SOFTWARE_OPTIONS,
+  WORK_MODES
+} from './onboarding-options';
 
 const PHONE_PATTERN = /^\+?[0-9][0-9\s\-().]{7,20}$/;
 const STEP_GROUP_KEYS = ['personal', 'job', 'tax', 'equipment', 'policies'] as const;
@@ -67,6 +75,7 @@ export class OnboardingWizardComponent {
   readonly progressValue = computed(() =>
     Math.round(((this.currentStep() + 1) / TOTAL_STEPS) * 100)
   );
+  readonly canPopulateCurrentStep = computed(() => this.currentStep() < STEP_GROUP_KEYS.length);
 
   readonly form = this.fb.group({
     personal: this.fb.group({
@@ -176,6 +185,61 @@ export class OnboardingWizardComponent {
     this.stepMessage.set(null);
     this.storage.clear();
     this.submitted.set(true);
+  }
+
+  protected populateCurrentStep(): void {
+    const i = this.currentStep();
+    switch (i) {
+      case 0:
+        this.form.controls.personal.patchValue({
+          fullName: 'Jordan Lee',
+          email: 'jordan.lee@example.com',
+          phone: '+1 555 0199',
+          address: '100 Market Street, San Francisco, CA 94105',
+          emergencyContact: 'Alex Lee (Sibling) - +1 555 0144'
+        });
+        break;
+      case 1:
+        this.form.controls.job.patchValue({
+          department: DEPARTMENTS[0],
+          jobTitle: 'Software Engineer II',
+          manager: 'Pat Morgan',
+          startDate: new Date(),
+          employmentType: EMPLOYMENT_TYPES[0],
+          workMode: WORK_MODES[1]
+        });
+        break;
+      case 2:
+        this.form.controls.tax.patchValue({
+          taxIdPlaceholder: '***-**-6789',
+          bankNamePlaceholder: 'Demo Federal Credit Union',
+          accountNumberPlaceholder: '000123456789',
+          routingPlaceholder: '021000021',
+          paymentPreference: 'Direct deposit'
+        });
+        break;
+      case 3:
+        this.form.controls.equipment.patchValue({
+          laptop: LAPTOP_OPTIONS[2],
+          accessories: [ACCESSORY_OPTIONS[1], ACCESSORY_OPTIONS[4]],
+          softwareAccess: [SOFTWARE_OPTIONS[0], SOFTWARE_OPTIONS[1], SOFTWARE_OPTIONS[3]],
+          systemsNeeded: 'Salesforce sandbox, internal wiki, design system Figma workspace'
+        });
+        break;
+      case 4:
+        this.form.controls.policies.patchValue({
+          handbook: true,
+          securityPolicy: true,
+          codeOfConduct: true,
+          accurateInfo: true
+        });
+        break;
+      default:
+        this.stepMessage.set('Move to a form step to populate placeholder values.');
+        return;
+    }
+    this.stepMessage.set('Placeholder values added for this step.');
+    this.persistDraft();
   }
 
   protected editSection(step: number): void {

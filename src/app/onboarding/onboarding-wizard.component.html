@@ -111,6 +111,15 @@
               Back
             </button>
             <div class="k-d-flex k-gap-2 k-flex-wrap">
+              <button
+                kendoButton
+                fillMode="outline"
+                type="button"
+                [disabled]="!canPopulateCurrentStep()"
+                (click)="populateCurrentStep()"
+              >
+                Populate this step
+              </button>
               @if (currentStep() < 5) {
                 <button kendoButton themeColor="primary" type="button" (click)="next()">Next</button>
               } @else {
