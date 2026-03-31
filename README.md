@@ -153,7 +153,7 @@ Kendo UI is a commercial product. For development, follow [Kendo UI licensing](h
 | **Submit handler** | `OnboardingWizardComponent.submit()` in `src/app/onboarding/onboarding-wizard.component.ts` — replace the demo `storage.clear()` + `submitted.set(true)` with an HTTP call (e.g. `HttpClient.post`) to your HRIS or workflow API. |
 | **Sensitive payroll data** | `TaxPayrollStepComponent` uses placeholder fields on purpose. In production, collect tax and banking details through your payroll provider’s secure flow or tokenized fields, not plain text in a generic form. |
 | **Auth** | Add `HttpClient` interceptors (or `provideHttpClient(withInterceptors(...))`) for tokens and correlate submissions with the signed-in user. |
-| **Draft sync** | `OnboardingStorageService` (`src/app/onboarding/onboarding-storage.service.ts`) persists to `localStorage`. Swap or extend this with server-backed drafts (user id + version) if users switch devices. |
+| **Draft sync** | `OnboardingStorageService` (`src/app/onboarding/onboarding-storage.service.ts`) persists to `sessionStorage` (tab/session-scoped). Swap or extend this with server-backed drafts (user id + version) if users switch devices. |
 
 Storage key: `employee-onboarding-form-draft-v1` (see `ONBOARDING_STORAGE_KEY`).
 

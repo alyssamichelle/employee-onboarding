@@ -14,7 +14,7 @@ export interface OnboardingDraft {
 export class OnboardingStorageService {
   load(): OnboardingDraft | null {
     try {
-      const raw = localStorage.getItem(ONBOARDING_STORAGE_KEY);
+      const raw = sessionStorage.getItem(ONBOARDING_STORAGE_KEY);
       if (!raw) {
         return null;
       }
@@ -31,13 +31,13 @@ export class OnboardingStorageService {
   save(draft: Omit<OnboardingDraft, 'version'>): void {
     try {
       const payload: OnboardingDraft = { version: 1, ...draft };
-      localStorage.setItem(ONBOARDING_STORAGE_KEY, JSON.stringify(payload));
+      sessionStorage.setItem(ONBOARDING_STORAGE_KEY, JSON.stringify(payload));
     } catch {
       /* quota or private mode */
     }
   }
 
   clear(): void {
-    localStorage.removeItem(ONBOARDING_STORAGE_KEY);
+    sessionStorage.removeItem(ONBOARDING_STORAGE_KEY);
   }
 }

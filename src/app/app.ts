@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject, isDevMode } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { OnboardingStorageService } from './onboarding/onboarding-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,12 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {}
+export class App {
+  private readonly onboardingStorage = inject(OnboardingStorageService);
+
+  constructor() {
+    if (isDevMode()) {
+      this.onboardingStorage.clear();
+    }
+  }
+}
