@@ -46,3 +46,54 @@ So overall, this project demonstrates two things:
 what the onboarding app does from an end-user perspective, and
 how AI-assisted generation with MCP servers can speed up high-quality Angular UI development while still keeping best-practice guardrails in place.
 Thanks for watching.
+
+---
+
+Recording code references (file + line ranges)
+
+- App startup and dev-only draft reset
+  - `src/app/app.ts` lines 1-19
+
+- Wizard architecture, Kendo imports, and step definitions
+  - `src/app/onboarding/onboarding-wizard.component.ts` lines 1-89
+
+- Reactive form structure for all onboarding steps
+  - `src/app/onboarding/onboarding-wizard.component.ts` lines 90-125
+
+- Draft restore + autosave wiring
+  - `src/app/onboarding/onboarding-wizard.component.ts` lines 127-143
+  - `src/app/onboarding/onboarding-wizard.component.ts` lines 336-345
+
+- Step validation, guarded navigation, and error messaging
+  - `src/app/onboarding/onboarding-wizard.component.ts` lines 145-185
+  - `src/app/onboarding/onboarding-wizard.component.ts` lines 304-334
+
+- Submit flow and success transition
+  - `src/app/onboarding/onboarding-wizard.component.ts` lines 187-198
+  - `src/app/onboarding/onboarding-wizard.component.html` lines 1-24
+
+- "Populate this step" demo helper
+  - `src/app/onboarding/onboarding-wizard.component.ts` lines 200-253
+  - `src/app/onboarding/onboarding-wizard.component.html` lines 123-131
+
+- Review/edit flow and start-over action
+  - `src/app/onboarding/onboarding-wizard.component.ts` lines 255-302
+
+- Stepper, progress bar, linear navigation, and per-step rendering
+  - `src/app/onboarding/onboarding-wizard.component.html` lines 39-57
+  - `src/app/onboarding/onboarding-wizard.component.html` lines 89-108
+  - `src/app/onboarding/onboarding-wizard.component.html` lines 112-140
+
+- Auto-save messaging in the UI copy
+  - `src/app/onboarding/onboarding-wizard.component.html` lines 30-33
+
+- Local storage service (load/save/clear)
+  - `src/app/onboarding/onboarding-storage.service.ts` lines 1-43
+
+- Shared option lists used by dropdowns and demo population
+  - `src/app/onboarding/onboarding-options.ts` lines 1-40
+
+- Prompt/source references you mention in narration
+  - `README.md` (prompt + project context)
+  - `docs/cursor_employee_onboarding_form_structu.md` (original generated structure prompt reference)
+  - `docs/angular-best-practices.md` (best-practices validation notes)
