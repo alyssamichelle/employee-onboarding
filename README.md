@@ -109,6 +109,23 @@ npm start
 
 Open `http://localhost:4200/`. The default route loads the onboarding wizard.
 
+## Demo helpers
+
+### Populate this step
+
+The wizard footer includes a **Populate this step** button (it is disabled on **Review**). Clicking it fills **only the step currently on screen** with placeholder data so you can move through the flow quickly without typing. Where fields use fixed lists (department, laptop, accessories, software, and so on), the values match those options so validation and controls behave normally.
+
+The logic lives in `populateCurrentStep()` in `src/app/onboarding/onboarding-wizard.component.ts`. Inline feedback for that action uses an **info**-style banner (`role="status"`, softer colors); blocking validation messages still use **error** styling (`role="alert"`).
+
+### Step message animation (`0fr` → `1fr`)
+
+When a step message appears (validation errors, populate confirmation, and so on), the banner area expands above the form. To reduce a hard layout jump, the message slot animates **height** with a small CSS Grid pattern:
+
+- The outer element is a grid row that transitions `grid-template-rows` from **`0fr`** (collapsed) to **`1fr`** (sized to content).
+- An inner wrapper uses **`overflow: hidden`** and **`min-height: 0`** so content clips while the row collapses and the grid can shrink cleanly.
+
+That avoids animating `height: auto`, which browsers cannot interpolate smoothly. Markup: `.wizard-step-message-slot` in `src/app/onboarding/onboarding-wizard.component.html`; styles: `src/app/onboarding/onboarding-wizard.component.css`.
+
 ## Build
 
 ```bash

@@ -29,6 +29,8 @@ On launch, users land in the onboarding wizard. They can’t skip ahead if earli
 
 A key feature is draft persistence. The form state is saved locally, so if the user refreshes or navigates away, progress can be restored. The tax/payroll step is clearly marked as mock/demo for safe handling during prototyping.
 
+For **demo applications** like this one, it’s also really handy to be able to move through the form fields to test out other parts of the wizard stepper and form. That’s why I added a **Populate this step**: button in the wizard footer that fills **only the step currently on screen** with placeholder values. You can click through the flow quickly and still see real validation, dropdowns, and multiselects behave correctly—because the sample values come from the same option lists we use in code (for example departments, laptop choices, and software tags from `onboarding-options.ts`).
+
 On submit, the app shows a success state and clears the local draft. The README also calls out where to integrate real APIs later, especially in the submit handler and for secure payroll data flows.
 
 I also validated implementation standards using the Angular MCP server output in docs/angular-best-practices.md.
